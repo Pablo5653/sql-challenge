@@ -34,7 +34,7 @@ CREATE TABLE departments (
 
 COPY departments
 from 'C:\Program Files\PostgreSQL\12\Data/SQL_Homework_data_departments.csv'
-with (format csv, header)
+with (format csv, header);
 
 CREATE TABLE titles (
   emp_no VARCHAR(30) NOT NULL,  
@@ -45,7 +45,7 @@ CREATE TABLE titles (
 
 COPY titles
 from 'C:\Program Files\PostgreSQL\12\Data/SQL_Homework_data_titles.csv'
-with (format csv, header)
+with (format csv, header);
 
 CREATE TABLE salary (
   emp_no VARCHAR(30) NOT NULL,
@@ -115,7 +115,7 @@ WHERE dept_name = 'Sales';
 #List all employees in the Sales and Development departments, including their employee number, last name, first name, and department name.
 
 SELECT * FROM departments 
-WHERE dept_name = 'Sales' AND dept_name = 'Development';
+WHERE dept_name = 'Sales' OR dept_name = 'Development';
 
 
 
