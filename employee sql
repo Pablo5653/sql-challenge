@@ -1,0 +1,136 @@
+#importar archivos csv
+
+CREATE TABLE dep_manager (
+  dept_no VARCHAR(30) NOT NULL,
+  emp_no VARCHAR(30) NOT NULL,
+  from_date DATE,
+  to_date DATE
+  
+);
+
+COPY dep_manager
+from 'C:\Program Files\PostgreSQL\12\Data/SQL_Homework_data_dept_manager.csv'
+with (format csv, header);
+
+
+CREATE TABLE dep_emp (
+  emp_no VARCHAR(30) NOT NULL,
+  dept_no VARCHAR(30) NOT NULL,
+  from_date DATE,
+  to_date DATE
+  
+);
+
+COPY dep_emp
+from 'C:\Program Files\PostgreSQL\12\Data/SQL_Homework_data_dept_emp.csv'
+with (format csv, header);
+
+
+CREATE TABLE departments (
+  dept_no VARCHAR(30) NOT NULL,
+  dept_name VARCHAR(30) NOT NULL
+  
+);
+
+COPY departments
+from 'C:\Program Files\PostgreSQL\12\Data/SQL_Homework_data_departments.csv'
+with (format csv, header)
+
+CREATE TABLE titles (
+  emp_no VARCHAR(30) NOT NULL,  
+  title VARCHAR(30) NOT NULL,
+  from_date DATE,
+  to_date DATE
+);
+
+COPY titles
+from 'C:\Program Files\PostgreSQL\12\Data/SQL_Homework_data_titles.csv'
+with (format csv, header)
+
+CREATE TABLE salary (
+  emp_no VARCHAR(30) NOT NULL,
+  salary INT,
+  from_date DATE,
+  to_date DATE  
+);
+
+COPY salary
+from 'C:\Program Files\PostgreSQL\12\Data/SQL_Homework_data_salaries.csv'
+with (format csv, header);
+
+
+CREATE TABLE employee (
+  emp_no VARCHAR(30) NOT NULL,
+  birth_date DATE,
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(30) NOT NULL, 
+  gender VARCHAR(30) NOT NULL,
+  hire_date DATE
+ 
+ );
+ 
+COPY employee
+from 'C:\Program Files\PostgreSQL\12\Data/SQL_Homework_data_employees.csv'
+with (format csv, header);
+
+
+#List the following details of each employee: employee number, last name, first name, gender, and salary.
+
+SELECT employee.first_name, employee.last_name, employee.gender,salary.salary
+FROM salary
+INNER JOIN employee ON
+employee.emp_no=salary.emp_no;
+
+
+
+#List employees who were hired in 1986
+
+SELECT first_name,last_name,hire_date FROM employee WHERE hire_date BETWEEN '1986-01-01' AND '1986-12-31';
+
+#List the manager of each department with the following information: department number, department name, the manager's employee number, last name, first name, and start and end employment dates.
+
+SELECT dep_manager.emp_no, dep_manager.dept_no, departments.dept_name
+FROM departments
+INNER JOIN dep_manager ON
+dep_manager.dept_no=departments.dept_no;
+
+
+#List the department of each employee with the following information: employee number, last name, first name, and department name.
+
+
+    
+#List all employees whose first name is "Hercules" and last names begin with "B."
+
+SELECT * FROM employee 
+WHERE first_name = 'Hercules'
+	AND last_name LIKE 'B%';
+    
+    
+#List all employees in the Sales department, including their employee number, last name, first name, and department name.
+    
+SELECT * FROM departments 
+WHERE dept_name = 'Sales';
+
+
+#List all employees in the Sales and Development departments, including their employee number, last name, first name, and department name.
+
+SELECT * FROM departments 
+WHERE dept_name = 'Sales' AND dept_name = 'Development';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
